@@ -53,6 +53,10 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
         $maPN = $_POST['MaPN'] ?? '';
         $ngayNhap = $_POST['NgayNhap'] ?? '';
         $maTK = $_POST['MaTK'] ?? '';
+        // Nếu là Nhân viên, tự động lưu MaTK = userId của người đang đăng nhập
+        if ($userRole == 'Nhân viên' && $userId) {
+            $maTK = $userId;
+        }
         $tinhTrang = $_POST['TinhTrang_PN'] ?? 'Đang xử lý';
         $maSPs = $_POST['MaSP'] ?? [];
         $slns = $_POST['SLN'] ?? [];
@@ -77,10 +81,6 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
                 // Thêm phiếu nhập
                 $maPN = generateMaPN($pdo);
-                // Nếu là Nhân viên, tự động lưu MaTK = userId của người đang đăng nhập
-                if ($userRole == 'Nhân viên' && $userId) {
-                    $maTK = $userId;
-                }
                 $stmt = $pdo->prepare("INSERT INTO PHIEUNHAP (MaPN, NgayNhap, MaTK, TinhTrang_PN) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$maPN, $ngayNhap, $maTK, $tinhTrang]);
 
@@ -1853,7 +1853,7 @@ if (!empty($maPNs)) {
             if (!form) return false;
             
             const ngayNhap = form.querySelector('input[name="NgayNhap"]')?.value;
-            const maTK = form.querySelector('select[name="MaTK"]')?.value;
+            const maTK = form.querySelector('select[name="MaTK"], input[name="MaTK"]')?.value;
             const tinhTrang = form.querySelector('select[name="TinhTrang_PN"]')?.value;
             
             if (!ngayNhap || !maTK || !tinhTrang) {
