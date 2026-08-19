@@ -1057,7 +1057,6 @@ if (!empty($maPNs)) {
                     <option value="Đã duyệt">Đã duyệt</option>
                     <option value="Bị từ chối">Bị từ chối</option>
                     <option value="Hoàn thành">Hoàn thành</option>
-                    <option value="Có thay đổi">Có thay đổi</option>
                 </select>
                 </div>
             
@@ -1628,6 +1627,15 @@ if (!empty($maPNs)) {
         }
 
         function updateStatus(newStatus) {
+            if (newStatus === 'Có thay đổi') {
+                if (!confirm('Bạn có chắc chắn muốn đổi trạng thái phiếu thành "Có thay đổi"? Thao tác này không thể hoàn tác.')) {
+                    return;
+                }
+            } else if (newStatus !== 'Đang xử lý' && newStatus !== 'Đã duyệt') {
+                if (!confirm('Cảnh báo: Thao tác này không thể hoàn tác! Bạn có chắc chắn muốn đổi trạng thái thành "' + newStatus + '"?')) {
+                    return;
+                }
+            }
             if (statusChangeMaPN) {
                 fetch('imports.php?action=change_status_ajax', {
                     method: 'POST',

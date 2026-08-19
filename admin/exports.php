@@ -1397,7 +1397,6 @@ function getTrangThaiDisplay($tinhTrang) {
                     <option value="Đã duyệt">Đã duyệt</option>
                     <option value="Bị từ chối">Bị từ chối</option>
                     <option value="Hoàn thành">Hoàn thành</option>
-                    <option value="Có thay đổi">Có thay đổi</option>
                 </select>
                 </div>
                 
@@ -1876,6 +1875,15 @@ function getTrangThaiDisplay($tinhTrang) {
         }
 
         function updateStatus(newStatus) {
+            if (newStatus === 'Có thay đổi') {
+                if (!confirm('Bạn có chắc chắn muốn đổi trạng thái phiếu thành "Có thay đổi"? Thao tác này không thể hoàn tác')) {
+                    return;
+                }
+            } else if (newStatus !== 'Đang xử lý' && newStatus !== 'Đã duyệt') {
+                if (!confirm('Cảnh báo: Thao tác này không thể hoàn tác! Bạn có chắc chắn muốn đổi trạng thái thành "' + newStatus + '"?')) {
+                    return;
+                }
+            }
             if (statusChangeMaPX) {
                 const formData = new FormData();
                 formData.append('action', 'update_status');
