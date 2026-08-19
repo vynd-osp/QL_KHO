@@ -39,6 +39,6 @@ Tài liệu này hướng dẫn chi tiết các bước thiết lập cơ sở d
 
 * Nhập đường link sau lên trình duyệt: [http://localhost/N17TKWEB_QLKHO/login.php](http://localhost/N17TKWEB_QLKHO/login.php)
 * **Thông tin đăng nhập mẫu (từ bảng `TAIKHOAN`):**
-  * **Tài khoản:** `TK00001` (Quản lý) hoặc `TK00002` (Nhân viên)
+  * **Tài khoản:**`Nguyen Van A` (Quản lý) hoặc `Tran Thi B` (Nhân viên)
   * **Mật khẩu:** `123456`
 * Sau khi đăng nhập thành công, bạn sẽ được chuyển hướng trực tiếp đến trang chủ quản lý/dashboard.
